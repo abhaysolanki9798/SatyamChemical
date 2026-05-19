@@ -3,15 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Satyam-Chemical </title>
+  <title>Satyam-Chemical</title>
   <link rel="stylesheet" href="index.css">
+  <!-- Material Icons for the Menu/Close toggle -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
+
   <div class="header">
-    <img src="../SatyamChemical/images/logo.png" alt="Satyam-Chemical Logo">
+    <img src="images/logo.png" alt="Satyam-Chemical Logo">
     
-    
+    <nav class="nav-container">
+      <ul class="navbar">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <!-- Navigation toggle button (Hidden on desktop, auto-visible on mobile) -->
+    <i class="material-icons" onclick="toggleSidebar()">menu</i>
   </div>
 
+  <!-- Dimmed background overlay when mobile sidebar opens -->
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <script>
+    function toggleSidebar() {
+      const navContainer = document.querySelector('.nav-container');
+      const menuIcon = document.querySelector('.material-icons');
+      const overlay = document.querySelector('.sidebar-overlay');
+      
+      // Toggles open state classes
+      navContainer.classList.toggle('active');
+      overlay.classList.toggle('active');
+      
+      // Swaps the visual icon type cleanly
+      if (navContainer.classList.contains('active')) {
+        menuIcon.textContent = 'close';
+      } else {
+        menuIcon.textContent = 'menu';
+      }
+    }
+  </script>
 </body>
 </html>

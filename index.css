@@ -1,18 +1,159 @@
-body{
+/* ==========================================================================
+   GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: #f5f5f5;
+  overflow-x: hidden; /* Guards against horizontal scrolling glitches */
 }
-.header{
+
+/* ==========================================================================
+   DESKTOP HEADER & GLOBAL NAVBAR
+   ========================================================================== */
+.header {
   width: 100%;
-  background-color: black;
-  padding: 5px 20px;
+  background: #313e45;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 50px;
+  padding: 10px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
-.header img{
-  width: 120px;
-  height: 110px;
+
+.header img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.navbar {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  transition: 0.3s;
+  position: relative;
+}
+
+/* Sliding hover line effect */
+.navbar a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background: #00bfff;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #00bfff;
+}
+
+.navbar a:hover::after {
+  width: 100%;
+}
+
+/* NAVIGATION TOGGLE BUTTON (CRITICAL: HIDDEN BY DEFAULT ON DESKTOP) */
+.material-icons {
+  color: white;
+  font-size: 34px;
+  cursor: pointer;
+  display: none; /* ◄ Keeps icon invisible on large screens */
+  z-index: 1001;  /* Keeps icon operational layered above panels */
+}
+
+/* DARK SHADOW BACKGROUND OVERLAY */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 998;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   TABLET BREAKPOINT (900px)
+   ========================================================================== */
+@media(max-width: 900px) {
+  .navbar {
+    gap: 18px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE BREAKPOINT (SIDEBAR STARTS HERE AT 720px)
+   ========================================================================== */
+@media(max-width: 720px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .header img {
+    width: 75px;
+    height: 75px;
+  }
+
+  /* SHOW BUTTON ONLY NOW ON MOBILE SCREENS */
+  .material-icons {
+    display: block; 
+  }
+
+  /* TRANSFORMS THE HORIZONTAL MENU TO A FIXED SLIDE-OUT SIDEBAR */
+  .nav-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px; 
+    height: 100vh;
+    background: #313e45;
+    padding-top: 120px; /* Forces links down below header height line */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    
+    /* Pushes sidebar completely out of the right screen edge */
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 999;
+  }
+
+  /* Slide right back to 0 position when active */
+  .nav-container.active {
+    transform: translateX(0);
+  }
+
+  /* Restructure your navigation items vertically inside drawer */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 40px;
+    gap: 35px;
+  }
+
+  .navbar a {
+    font-size: 18px; /* Slightly larger text block for thumb-tapping */
+  }
 }

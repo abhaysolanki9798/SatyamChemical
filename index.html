@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="index.js"></script>
 </head>
 <body>
 
@@ -18,7 +19,7 @@
     <nav class="nav-container">
       <ul class="navbar">
         <li><a href="#home">Home</a></li>
-        <li><a href="#about">About Us</a></li>
+        <li><a href="about.html">About Us</a></li>
         <li><a href="#contact">Contact Us</a></li>
       </ul>
     </nav>
@@ -168,23 +169,5 @@
 
 
 
-  <script>
-    function toggleSidebar() {
-      const navContainer = document.querySelector('.nav-container');
-      const menuIcon = document.querySelector('.material-icons');
-      const overlay = document.querySelector('.sidebar-overlay');
-      
-      // Toggles open state classes
-      navContainer.classList.toggle('active');
-      overlay.classList.toggle('active');
-      
-      // Swaps the visual icon type cleanly
-      if (navContainer.classList.contains('active')) {
-        menuIcon.textContent = 'close';
-      } else {
-        menuIcon.textContent = 'menu';
-      }
-    }
-  </script>
 </body>
 </html>

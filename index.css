@@ -6,32 +6,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-  /* Reset and full screen setup */
-         body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white; /* Deep blue background */
-            overflow: auto;
-        }
-
-        /* Ensures the particle container takes up the entire screen */
-        #ts-particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
         
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
- 
-  overflow-x: hidden; /* Guards against horizontal scrolling glitches */
+  
+
 }
 button {
   padding: 10px 20px;
@@ -137,7 +116,7 @@ background: radial-gradient(circle, rgba(17, 255, 0, 1) 3%, rgba(65, 69, 74, 1) 
 
 .banner{
   width:100%;
-  height:350px;
+  height:500px;
   padding:20px 5%;
   text-align:center;
   overflow:hidden;
@@ -148,32 +127,13 @@ background: radial-gradient(circle, rgba(17, 255, 0, 1) 3%, rgba(65, 69, 74, 1) 
   align-items:center;
 }
 
-
-/* Background Image Only */
-.banner::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-
-  background-image:url(images/pexels-pavel-danilyuk-8442641.jpg);
-  background-size:cover;
-  background-position:center;
-
-  opacity:0.7;   /* Change opacity here */
-
-  z-index:-1;
-}
-
 /* =========================
    HEADING
 ========================= */
 
 .banner h1{
   font-size:45px;
-  color:rgba(18, 40, 243, 0.808);
+  color:rgb(240, 240, 240);
   margin-bottom:25px;
   font-family:cursive;
 }
@@ -641,3 +601,33 @@ footer{
     margin-bottom: 20px;
   }
 }
+
+   /* अगर आप इसके ऊपर टेक्स्ट लिखना चाहते हैं */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            pointer-events: none; /* ताकि माउस इफ़ेक्ट बैकग्राउंड पर काम करे */
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 2px;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* 3D Canvas की स्टाइलिंग */
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+		

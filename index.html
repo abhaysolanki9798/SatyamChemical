@@ -12,74 +12,6 @@
   <script src="index.js"></script>
 </head>
 <body>
-<div id="ts-particles"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-
-    <script>
-        // Wait for the DOM to load, then initialize
-        document.addEventListener("DOMContentLoaded", async () => {
-            await tsParticles.load("ts-particles", {
-                fpsLimit: 60,
-                particles: {
-                    number: {
-                        value: 80, // Number of dots
-                        density: {
-                            enable: true,
-                            area: 800
-                        }
-                    },
-                    color: {
-                        value: "#11ff00" // Light cyan dots
-                    },
-                    shape: {
-                        type: "circle"
-                    },
-                    opacity: {
-                        value: 0.6
-                    },
-                    size: {
-                        value: { min: 2, max: 4 }
-                    },
-                    links: {
-                        enable: true,
-                        distance: 150,
-                        color: "ffffff", // Light blue lines with transparency
-                        opacity: 0.4,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1.5,
-                        direction: "none",
-                        random: false,
-                        straight: false,
-                        outModes: {
-                            default: "out"
-                        }
-                    }
-                },
-                interactivity: {
-                    events: {
-                        onHover: {
-                            enable: true,
-                            mode: "grab" // Draws lines to your cursor
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 200,
-                            links: {
-                                opacity: 0.8
-                            }
-                        }
-                    }
-                },
-                detectRetina: true
-            });
-        });
-    </script>
   <div class="header">
     <img src="images/logo.png" alt="Satyam-Chemical Logo">
     
@@ -101,8 +33,10 @@
 <!--===================sliding image start=========================-->
 
 <div class="banner">
-
-  <h1><span style="color: rgb(44, 160, 50);">Welcome to</span> Satyam Chemical</h1>
+    <canvas id="particle-canvas"></canvas>
+      <div class="content">
+        <h1>WELCOME TO Satyam Chemical</h1>
+    </div>
 
   <p>
     Satyam Chemical is a globally trusted manufacturer of Active Pharmaceutical Ingredients (APIs) and advanced intermediates operating from cGMP-compliant facilities in India and serving regulated markets worldwide.
@@ -235,6 +169,87 @@
 </footer>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
+    <script>
+        // 1. सीन, कैमरा और रेंडरर सेटअप करना
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('particle-canvas'), antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // 2. पार्टिकल्स (कण) बनाना
+        const particlesCount = 5000; // कणों की संख्या
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particlesCount * 3); // हर कण के लिए X, Y, Z कोऑर्डिनेट्स
+
+        // कणों को एक गोल आकार (Sphere shape) में फैलाना
+        for (let i = 0; i < particlesCount * 3; i += 3) {
+            // थोड़ा गणित का इस्तेमाल करके कणों को रैंडमली स्पेस में फैलाना
+            const u = Math.random();
+            const v = Math.random();
+            const theta = u * 2.0 * Math.PI;
+            const phi = Math.acos(2.0 * v - 1.0);
+            const r = Math.cbrt(Math.random()) * 5; // त्रिज्या (Radius)
+
+            positions[i]     = r * Math.sin(phi) * Math.cos(theta); // X
+            positions[i + 1] = r * Math.sin(phi) * Math.sin(theta); // Y
+            positions[i + 2] = r * Math.cos(phi);                  // Z
+        }
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        // 3. कणों का मटेरियल (दिखावट) तय करना
+        const material = new THREE.PointsMaterial({
+            size: 0.03,               // कणों का आकार
+            color: 0x00ffcc,          // कणों का रंग (Cyan/Neon Blue)
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending // इससे कण आपस में मिलकर चमकेंगे
+        });
+
+        // 4. मेष (Mesh/Points) बनाना और सीन में जोड़ना
+        const particleCloud = new THREE.Points(geometry, material);
+        scene.add(particleCloud);
+
+        // कैमरे की पोजीशन सेट करना
+        camera.position.z = 7;
+
+        // माउस मूवमेंट को ट्रैक करना (इंटरैक्टिविटी के लिए)
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - window.innerWidth / 2) / 100;
+            mouseY = (event.clientY - window.innerHeight / 2) / 100;
+        });
+
+        // 5. एनीमेशन लूप (लगातार चलने वाला फंक्शन)
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // कणों के बादल को धीरे-धीरे घुमाना
+            particleCloud.rotation.y += 0.002;
+            particleCloud.rotation.x += 0.001;
+
+            // माउस के हिलने पर हल्का सा कैमरा मूवमेंट देना
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 6. स्क्रीन साइज़ बदलने पर रिस्पॉन्सिव बनाना
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>

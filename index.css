@@ -456,7 +456,63 @@ background: radial-gradient(circle, rgba(17, 255, 0, 1) 3%, rgba(65, 69, 74, 1) 
     font-size: 12px;
   }
 }
+.compony{
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  
+}
+.compony h2{
+  font-size: 30px;
+  color: rgb(0, 94, 12);
+  margin-bottom: 20px;
+}
+.compony p{
+  color: rgb(104, 99, 99);
+  font-size: 16px;
+  width: 80%;
+  margin: auto;
+  line-height: 25px;
+  text-align: justify;
+}
+.compony li{
+  color: rgb(17, 17, 17);
+  font-size: 16px;
+  width: 80%;
+  margin: auto;
+  line-height: 25px;
+  text-align: justify;
+}
+.compony img{
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 20px;
+}
 
+
+@media(max-width:720px){
+  .compony{
+    padding: 10px;
+  }
+  .compony h2{
+    font-size: 16px;
+  
+  }
+  .compony p{
+    font-size: 12px;
+    width: 95%;
+    line-height: 20px;
+  }
+  .compony li{
+    font-size: 12px;
+    width: 100%;
+  }
+  .compony img{
+    width: 150px;
+    height: 150px;
+  }
+}
 /* ==========================================================================
   Footer
    ========================================================================== */

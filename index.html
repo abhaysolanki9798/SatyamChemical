@@ -12,15 +12,82 @@
   <script src="index.js"></script>
 </head>
 <body>
+<div id="ts-particles"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <script>
+        // Wait for the DOM to load, then initialize
+        document.addEventListener("DOMContentLoaded", async () => {
+            await tsParticles.load("ts-particles", {
+                fpsLimit: 60,
+                particles: {
+                    number: {
+                        value: 80, // Number of dots
+                        density: {
+                            enable: true,
+                            area: 800
+                        }
+                    },
+                    color: {
+                        value: "#00b4d8" // Light cyan dots
+                    },
+                    shape: {
+                        type: "circle"
+                    },
+                    opacity: {
+                        value: 0.6
+                    },
+                    size: {
+                        value: { min: 2, max: 4 }
+                    },
+                    links: {
+                        enable: true,
+                        distance: 150,
+                        color: "#00b4d8",
+                        opacity: 0.4,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        outModes: {
+                            default: "out"
+                        }
+                    }
+                },
+                interactivity: {
+                    events: {
+                        onHover: {
+                            enable: true,
+                            mode: "grab" // Draws lines to your cursor
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 200,
+                            links: {
+                                opacity: 0.8
+                            }
+                        }
+                    }
+                },
+                detectRetina: true
+            });
+        });
+    </script>
   <div class="header">
     <img src="images/logo.png" alt="Satyam-Chemical Logo">
     
     <nav class="nav-container">
       <ul class="navbar">
-        <li><a href="#home">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
       
@@ -35,7 +102,7 @@
 
 <div class="banner">
 
-  <h1><span style="color: rgb(29, 28, 28);">Welcome to</span> Satyam Chemical</h1>
+  <h1><span style="color: rgb(255, 255, 255);">Welcome to</span> Satyam Chemical</h1>
 
   <p>
     Satyam Chemical is a globally trusted manufacturer of Active Pharmaceutical Ingredients (APIs) and advanced intermediates operating from cGMP-compliant facilities in India and serving regulated markets worldwide.
